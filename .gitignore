@@ -1,16 +1,5 @@
-# QIIME2 outputs
+analysis/
+database/
 *.qza
 *.qzv
 *.biom
-
-# local analysis and database
-analysis/
-database/
-
-# Python cache
-__pycache__/
-*.pyc
-
-# OS files
-.DS_Store
-Thumbs.db
