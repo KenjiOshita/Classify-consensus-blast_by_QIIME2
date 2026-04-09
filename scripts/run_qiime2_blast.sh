@@ -19,15 +19,15 @@ if [ ! -d "$WORK_DIR" ]; then
   exit 1
 fi
 
-echo "=========================================="
-echo "QIIME 2 解析を開始します: $TARGET_DIR"
-echo "=========================================="
+
+echo "QIIME 2　系統分類を開始します: $TARGET_DIR"
+
 
 # 作業ディレクトリへ移動
 cd "$WORK_DIR"
 
 # 1. 系統分類の実行 (コンセンサスBLAST)
-echo "1/4 系統分類を実行中..."
+echo "1/4 系統分類を実行中"
 qiime feature-classifier classify-consensus-blast \
   --i-query repset.qza \
   --i-reference-reads ../../database/silva-138-99-seqs.qza \
@@ -40,25 +40,21 @@ qiime feature-classifier classify-consensus-blast \
   --o-search-results search_results.qza
 
 # 2. データの書き出し (エクスポート)
-echo "2/4 データをエクスポート中..."
+echo "2/4 データをエクスポート中"
 qiime tools export --input-path table.qza --output-path exported-table
 qiime tools export --input-path my_taxonomy_blast.qza --output-path exported-taxonomy
 
 # 3. カウント表のTSV化
-echo "3/4 CSVデータを作成中..."
+echo "3/4 CSVデータを作成中"
 biom convert -i exported-table/feature-table.biom -o asv_counts.tsv --to-tsv
 
-# Pythonスクリプトの実行 (パスを調整して実行)
+# Pythonスクリプトの実行 
 python3 ../../scripts/convert_to_csv_split.py
 
 # 4. 可視化 (QZVの作成)
-echo "4/4 グラフを作成中..."
+echo "4/4 グラフ用コードを作成中"
 qiime metadata tabulate --m-input-file my_taxonomy_blast.qza --o-visualization taxonomy.qzv
 qiime taxa barplot --i-table table.qza --i-taxonomy my_taxonomy_blast.qza --m-metadata-file map.txt --o-visualization taxa-bar-plots.qzv
 
-echo "=========================================="
-echo "解析が完了しました！"
-echo "作成されたファイル:"
-echo " - final_ASV_table.csv (R解析用)"
-echo " - taxa-bar-plots.qzv (QIIME 2 View用)"
-echo "=========================================="
+echo "END"
+
