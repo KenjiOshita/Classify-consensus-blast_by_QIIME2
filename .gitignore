@@ -1,0 +1,20 @@
+# QIIME2 data and outputs
+*.qza
+*.qzv
+*.biom
+*.tsv
+*.csv
+
+# analysis results
+analysis/
+
+# database
+database/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
