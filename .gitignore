@@ -1,14 +1,10 @@
-# QIIME2 data and outputs
+# QIIME2 outputs
 *.qza
 *.qzv
 *.biom
-*.tsv
-*.csv
 
-# analysis results
+# local analysis and database
 analysis/
-
-# database
 database/
 
 # Python cache
