@@ -6,7 +6,7 @@ set -e
 # 引数（フォルダ名）の確認
 TARGET_DIR=$1
 if [ -z "$TARGET_DIR" ]; then
-  echo "エラー: 解析するフォルダを指定してください。"
+  echo "エラー: 解析するフォルダを指定してください"
   echo "例: bash scripts/run_qiime2_blast.sh analysis/HIroshimabay_2025_18S"
   exit 1
 fi
@@ -20,14 +20,14 @@ if [ ! -d "$WORK_DIR" ]; then
 fi
 
 
-echo "QIIME 2　系統分類を開始します: $TARGET_DIR"
+echo "QIIME 2 start for taxonomic analysis: $TARGET_DIR"
 
 
 # 作業ディレクトリへ移動
 cd "$WORK_DIR"
 
 # 1. 系統分類の実行 (コンセンサスBLAST)
-echo "1/4 系統分類を実行中"
+echo "1. Taxo analysis"
 qiime feature-classifier classify-consensus-blast \
   --i-query repset.qza \
   --i-reference-reads ../../database/silva-138-99-seqs.qza \
@@ -40,21 +40,20 @@ qiime feature-classifier classify-consensus-blast \
   --o-search-results search_results.qza
 
 # 2. データの書き出し (エクスポート)
-echo "2/4 データをエクスポート中"
+echo "2.Data export"
 qiime tools export --input-path table.qza --output-path exported-table
 qiime tools export --input-path my_taxonomy_blast.qza --output-path exported-taxonomy
 
 # 3. カウント表のTSV化
-echo "3/4 CSVデータを作成中"
+echo "Create CSV file"
 biom convert -i exported-table/feature-table.biom -o asv_counts.tsv --to-tsv
 
 # Pythonスクリプトの実行 
 python3 ../../scripts/convert_to_csv_split.py
 
 # 4. 可視化 (QZVの作成)
-echo "4/4 グラフ用コードを作成中"
+echo "Making the code for graph"
 qiime metadata tabulate --m-input-file my_taxonomy_blast.qza --o-visualization taxonomy.qzv
 qiime taxa barplot --i-table table.qza --i-taxonomy my_taxonomy_blast.qza --m-metadata-file map.txt --o-visualization taxa-bar-plots.qzv
 
 echo "END"
-
