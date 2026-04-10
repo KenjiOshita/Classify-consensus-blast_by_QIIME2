@@ -19,6 +19,7 @@ Taxonomic_analysis/
         ├── repset.qza  # キメラ除去済みのASV代表配列 
         ├── table.qza   # ASVのカウント表 
         └── convert.txt     # サンプル情報（メタデータ）
+        └── map.txt  # サンプル情報（メタデータ）
 ```
 
 ---
