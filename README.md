@@ -16,7 +16,7 @@ Taxonomic_analysis/
     └── HIroshimabay_2025_18S/ # 生物技研から提供されたファイル「repset.qza」「table.qza」をここに入れる 
         ├── repset.qza  # キメラ除去済みのASV代表配列 
         ├── table.qza   # ASVのカウント表 
-        └── map.txt     # サンプル情報（メタデータ）
+        └── convert.txt     # サンプル情報（メタデータ）
 ```
 
 ---
