@@ -104,19 +104,7 @@ cd /mnt/e/Taxonomic_analysis
 # 解析の実行（一番最後の解析フォルダ名「HIroshimabay_2025_18S」を適宜変更すること）
 bash scripts/run_qiime2_blast.sh analysis/HIroshimabay_2025_18S
 ```
-### ２－３．ID変換と系統分類の結合・分割
-この手順はQIIME 2環境から抜けた（base）状態で実行可能です。作成したデータを、R等で扱いやすいようにID変換と系統分類の分割を行います。
 
-```bash
-# QIIME 2環境から抜ける。
-conda deactivate
-
-# スクリプトに実行権限を与える（初回のみ）
-chmod +x scripts/convert_to_csv_split.py
-
-# スクリプトを実行する
-./scripts/convert_to_csv_split.py
-```
 ---
 
 ## ３．出力結果とグラフの確認方法（QIIME 2 View）
